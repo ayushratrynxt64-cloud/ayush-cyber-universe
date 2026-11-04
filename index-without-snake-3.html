@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AJ | Cyber Universe</title>
+<style>
+:root{--bg:#020914;--panel:#061827;--cyan:#36efff;--blue:#078cff;--purple:#a94cff;--green:#00efa0;--gold:#ffc84a;--text:#e9f8ff;--muted:#94aec5}
+*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(ellipse at 70% 0,#12305b 0,transparent 45%),var(--bg);color:var(--text);font:15px Arial,sans-serif}
+button,input{font:inherit}button{cursor:pointer;color:var(--text);background:#09243a;border:1px solid #17617e;border-radius:9px;padding:11px}
+button:hover{border-color:var(--cyan);box-shadow:0 0 14px #00dfff30}
+.top{position:sticky;top:0;z-index:5;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 18px;background:#020b17ed;border-bottom:1px solid #087da6;backdrop-filter:blur(12px)}
+.brand{font-size:clamp(17px,3vw,27px);font-weight:900;letter-spacing:1px}.brand span{color:var(--cyan)}
+.topinfo{color:var(--muted);font-size:12px;text-align:right}
+.app{display:grid;grid-template-columns:205px minmax(0,1fr);min-height:calc(100vh - 65px)}
+aside{padding:14px 10px;background:#020b16;border-right:1px solid #0b526f}
+nav{display:grid;gap:7px}
+nav button{text-align:left;background:transparent;border-color:transparent}
+nav button.active{color:var(--cyan);border-color:var(--cyan);background:#063044;box-shadow:0 0 12px #00dfff25}
+.sidequote{margin-top:30px;padding:18px 8px;text-align:center;border:1px solid #15516a;border-radius:10px;color:var(--cyan);line-height:1.7}
+main{padding:15px;min-width:0}
+.hero{min-height:225px;display:flex;align-items:center;padding:clamp(20px,4vw,45px);border:1px solid var(--cyan);background:linear-gradient(90deg,#020817dd,#06162c50),url('https://images.unsplash.com/photo-1462331940025-496dfbfc7564?auto=format&fit=crop&w=1600&q=85') center/cover;border-radius:5px;box-shadow:0 0 22px #00cfff18}
+.hero small{letter-spacing:3px;color:var(--cyan);font-weight:bold}
+.hero h1{font-size:clamp(30px,5vw,54px);font-style:italic;margin:12px 0;text-shadow:0 0 20px #00cfff70}
+.hero p{color:#d1e9ff;line-height:1.6}
+.layout{display:grid;grid-template-columns:minmax(0,1.65fr) minmax(260px,1fr);gap:14px;margin-top:14px}
+.panel{padding:15px;background:linear-gradient(145deg,#071d30,#030c18);border:1px solid #096c91;border-radius:11px;box-shadow:inset 0 0 20px #00cfff08;margin-bottom:14px;min-width:0}
+h2{margin:0 0 14px;color:var(--cyan);font-size:18px}
+.profile{display:grid;grid-template-columns:100px minmax(0,1fr);gap:15px;align-items:center}
+.avatar{width:96px;height:96px;object-fit:cover;border-radius:50%;border:3px solid var(--cyan);box-shadow:0 0 22px #00dfff70;background:#10253a}
+.muted,small{color:var(--muted)}
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px;margin:14px 0}
+.stat{padding:13px;background:#061725;border:1px solid #12455f;border-radius:9px;min-width:0}
+.stat b{display:block;font-size:clamp(18px,2.4vw,26px);color:var(--cyan);margin:7px 0}
+.bar{height:9px;background:#152d42;border-radius:9px;overflow:hidden;border:1px solid #17445c}
+.bar span{display:block;height:100%;width:0;background:linear-gradient(90deg,#00f2c4,#078cff,#a94cff)}
+.games{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.gamecard{padding:13px;border:1px solid #087da6;border-radius:10px;background:linear-gradient(145deg,#071d30,#020b17);min-width:0}
+.gamecard:nth-child(2){border-color:#9c4bff}.gamecard:nth-child(3){border-color:#078cff}
+.gicon{font-size:32px}.gamecard h3{margin:9px 0;color:#eafaff}.gamecard p{color:var(--muted);font-size:12px;line-height:1.5;min-height:34px}
+.primary{width:100%;background:linear-gradient(90deg,#00e9c4,#078cff);color:#00131d;font-weight:bold;border:0}
+.playarea{margin-top:12px;padding:12px;background:#020d18;border:1px solid #17516a;border-radius:9px}
+.hidden{display:none!important}
+.pad{display:grid;grid-template-columns:repeat(3,58px);justify-content:center;gap:6px;margin:12px auto}
+.pad button{font-size:21px;padding:12px;min-height:54px;touch-action:none;user-select:none;-webkit-user-select:none}
+.tttboard{display:grid;grid-template-columns:repeat(3,minmax(65px,95px));gap:7px;justify-content:center}
+.tttboard button{height:75px;font-size:30px;color:var(--cyan)}
+.memoryboard{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px;max-width:360px;margin:auto}
+.memoryboard button{min-height:56px;font-size:24px;padding:5px}
+.guessrow{display:flex;gap:7px;flex-wrap:wrap}
+.guessrow input{width:100px;min-width:0;padding:10px;background:#071725;border:1px solid #17617e;color:white;border-radius:8px}
+.msg{margin-top:10px;color:var(--cyan);line-height:1.6;overflow-wrap:anywhere}
+.task{padding:12px 0;border-bottom:1px solid #15384d;line-height:1.5}
+.task:last-child{border-bottom:0}
+.task input{accent-color:#00eac8}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.row>*{flex:1}
+.musicbox{padding:13px;border:1px solid #15516a;border-radius:9px;background:#03101d}
+input[type=file]{max-width:100%;font-size:12px;color:var(--muted)}
+audio{width:100%;margin-top:12px}
+.shop{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.shop button{text-align:left}
+footer{padding:17px;text-align:center;color:var(--muted);font-size:12px;border-top:1px solid #12445e}
+@media(max-width:1000px){.app{grid-template-columns:1fr}aside{padding:9px;border-right:0;border-bottom:1px solid #087da6}nav{display:flex;overflow-x:auto}nav button{white-space:nowrap;flex-shrink:0}.sidequote{display:none}.layout{grid-template-columns:1fr}}
+@media(max-width:650px){main{padding:9px}.top{padding:10px}.topinfo{max-width:110px}.hero{min-height:190px;padding:19px}.stats{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.games{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.gamecard{padding:10px}.profile{grid-template-columns:72px minmax(0,1fr);gap:11px}.avatar{width:70px;height:70px}.panel{padding:12px}.tttboard button{height:65px}.memoryboard button{min-height:49px}.brand{font-size:16px}}
+</style>
+</head>
+<body>
+<header class="top">
+ <div class="brand">👑 AJ <span>| CYBER UNIVERSE</span></div>
+ <div class="topinfo"><b id="clock">--:--</b><br>OFFLINE GAME DASHBOARD</div>
+</header>
+<div class="app">
+<aside>
+ <nav id="nav">
+ <button class="active" onclick="go('home',this)">⌂ &nbsp; HOME</button>
+ <button onclick="go('games',this)">🎮 &nbsp; GAMES</button>
+ <button onclick="go('music',this)">🎵 &nbsp; MUSIC PLAYER</button>
+ <button onclick="go('achievements',this)">🏆 &nbsp; ACHIEVEMENTS</button>
+ <button onclick="go('missions',this)">🎯 &nbsp; DAILY MISSIONS</button>
+ <button onclick="go('shop',this)">🪙 &nbsp; COINS & SHOP</button>
+ <button onclick="go('profile',this)">👤 &nbsp; MY PROFILE</button>
+ </nav>
+ <div class="sidequote">♛<br>YOU ARE STRONGER<br>THAN YOU THINK<br><br><small>AJ | CYBER UNIVERSE</small></div>
+</aside>
+<main id="home">
+<section class="hero">
+ <div><small>WELCOME TO YOUR WORLD</small><h1>AJ | CYBER<br>UNIVERSE</h1><p>SMALL STEPS · BIG DREAMS · LIMITLESS POSSIBILITIES</p><button class="primary" style="width:auto" onclick="go('games')">▶ EXPLORE GAMES</button></div>
+</section>
+<section class="panel" id="profile" style="margin-top:14px">
+ <div class="profile">
+ <img id="avatar" class="avatar" alt="Your avatar" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%2307192b'/%3E%3Ctext x='50' y='62' font-size='48' text-anchor='middle'%3EAJ%3C/text%3E%3C/svg%3E">
+ <div><h2 style="margin-bottom:7px">Ayush Raj 👑</h2><p style="color:#00efa0;margin:5px 0">● Online</p><p class="muted">Class 10 | Gamer | Dreamer</p><label class="muted">Choose your avatar: <input type="file" accept="image/*" onchange="setAvatar(event)"></label></div>
+ </div>
+ <div style="margin-top:16px">LEVEL <b id="level" style="color:var(--cyan)">1</b> <span class="muted" id="xptext">0 / 100 XP</span><div class="bar"><span id="xpbar"></span></div></div>
+</section>
+<section class="stats">
+ <div class="stat">🎮 Games Played<b id="played">0</b><small>Your activity</small></div>
+ <div class="stat">⚡ Total XP<b id="xp">0</b><small>Keep progressing</small></div>
+ <div class="stat">🪙 Cyber Coins<b id="coins">100</b><small>Virtual points only</small></div>
+ <div class="stat">🏆 Achievements<b id="badges">0/3</b><small>Keep exploring</small></div>
+</section>
+<div class="layout">
+<div>
+<section class="panel" id="games">
+<h2>🎮 PLAY GAMES</h2>
+<div class="games">
+ <article class="gamecard"><div class="gicon">⭕</div><h3>TIC-TAC-TOE</h3><p>Get three in a row to win.</p><button class="primary" onclick="openGame('tttgame')">PLAY</button></article>
+ <article class="gamecard"><div class="gicon">🧠</div><h3>MEMORY MATCH</h3><p>Find matching pairs and train your memory.</p><button class="primary" onclick="openGame('memorygame')">PLAY</button></article>
+ <article class="gamecard"><div class="gicon">🔢</div><h3>NUMBER GUESS</h3><p>Guess the secret number from 1 to 100.</p><button class="primary" onclick="openGame('guessgame')">PLAY</button></article>
+ <article class="gamecard"><div class="gicon">🎵</div><h3>MUSIC PLAYER</h3><p>Choose a music file stored on your phone.</p><button class="primary" onclick="go('music')">OPEN MUSIC</button></article>
+ <article class="gamecard"><div class="gicon">🌌</div><h3>CYBER PROFILE</h3><p>Choose your own avatar image.</p><button class="primary" onclick="go('profile')">MY PROFILE</button></article>
+</div>
+<div class="playarea hidden" id="tttgame"><h2>⭕ Tic-Tac-Toe</h2><div class="tttboard" id="tttboard"></div><p class="msg" id="tttmsg">Your turn: X</p><button onclick="resetTTT()">New Game</button></div>
+<div class="playarea hidden" id="memorygame"><h2>🧠 Memory Match</h2><div class="memoryboard" id="memoryboard"></div><p class="msg" id="memorymsg">Find matching pairs.</p><button onclick="newMemory()">Restart</button></div>
+<div class="playarea hidden" id="guessgame"><h2>🔢 Number Guess</h2><p>Guess a number between 1 and 100.</p><div class="guessrow"><input id="guessinput" type="number" min="1" max="100" placeholder="1–100"><button onclick="guess()">Check</button><button onclick="newGuess()">Reset</button></div><p class="msg" id="guessmsg">Ready to play!</p></div>
+</section>
+<section class="panel" id="music"><h2>🎵 CYBER MUSIC SYSTEM</h2><div class="musicbox"><p>Choose an audio file from your phone. Playback works locally in your browser.</p><input id="musicfile" type="file" accept="audio/*"><audio id="player" controls></audio><div class="row" style="margin-top:10px"><button onclick="document.getElementById('musicfile').click()">📂 Choose Song</button><button onclick="document.getElementById('player').play()">▶ Play</button><button onclick="document.getElementById('player').pause()">⏸ Pause</button></div><p class="muted" id="musicmsg">No song selected.</p></div></section>
+</div>
+<div>
+<section class="panel" id="achievements"><h2>🏆 LATEST ACHIEVEMENTS</h2><div class="task">💠 <b>First Game</b><br><small>Play any game · +10 XP</small></div><div class="task">⚡ <b>XP Hunter</b><br><small>Earn 100 XP · +20 XP</small></div><div class="task">🧠 <b>Memory Genius</b><br><small>Match every pair · +15 XP</small></div></section>
+<section class="panel" id="missions"><h2>🎯 DAILY MISSIONS</h2><label class="task"><input type="checkbox"> Play a game today</label><label class="task"><input type="checkbox"> Complete a memory round</label><label class="task"><input type="checkbox"> Guess the correct number</label><label class="task"><input type="checkbox"> Study for exams</label></section>
+<section class="panel" id="shop"><h2>🪙 CYBER COINS SHOP</h2><div class="shop"><button onclick="buy(100,'Profile Theme')">🎨 Theme<br><small>100 coins</small></button><button onclick="buy(200,'Avatar Frame')">🟣 Avatar Frame<br><small>200 coins</small></button><button onclick="buy(150,'Wallpaper')">🌌 Wallpaper<br><small>150 coins</small></button><button onclick="buy(300,'Special Badge')">🏅 Badge<br><small>300 coins</small></button></div><p id="shopmsg" class="msg">Demo coins only.</p></section>
+<section class="panel"><h2>🤖 JARVIS CONSOLE</h2><p class="muted">A simple local dashboard helper.</p><div class="row"><input id="jarvisinput" placeholder="Type help, time, games..." style="min-width:0;width:100%;padding:10px;background:#061725;border:1px solid #17617e;color:white;border-radius:8px"><button onclick="jarvis()">ASK</button></div><p id="jarvismsg" class="msg">Hello Ayush! Type “help” to see commands.</p></section>
+<section id="recent" class="panel"><h2>⚡ RECENT ACTIVITY</h2><div id="activity" class="task">Welcome to your Cyber Universe!</div></section>
+<section class="panel"><h2>📜 YOUR MOTTO</h2><p style="font-style:italic;line-height:1.7">“Discipline today builds the freedom of tomorrow.”</p><small>— Ayush Raj</small></section>
+</div>
+</div>
+</main>
+</div>
+<footer>AJ | CYBER UNIVERSE &nbsp; • &nbsp; Version 3.0 &nbsp; • &nbsp; Games run in your browser</footer>
+<script>
+let xp=0,coins=100,played=0,badges=0,secret=Math.floor(Math.random()*100)+1;
+function go(id,btn){let el=document.getElementById(id);if(el){el.scrollIntoView({behavior:'smooth',block:'start'})}if(btn){document.querySelectorAll('nav button').forEach(b=>b.classList.remove('active'));btn.classList.add('active')}}
+function addXP(n,msg){xp+=n;document.getElementById('xp').textContent=xp;document.getElementById('level').textContent=Math.floor(xp/100)+1;document.getElementById('xptext').textContent=(xp%100)+' / 100 XP';document.getElementById('xpbar').style.width=(xp%100)+'%';document.getElementById('coins').textContent=coins;document.getElementById('activity').textContent=msg+' · +'+n+' XP';}
+function startCount(){played++;document.getElementById('played').textContent=played}
+function openGame(id){document.querySelectorAll('.playarea').forEach(e=>e.classList.add('hidden'));document.getElementById(id).classList.remove('hidden');if(id==='tttgame')resetTTT();if(id==='memorygame')newMemory();if(id==='guessgame')newGuess();document.getElementById(id).scrollIntoView({behavior:'smooth',block:'center'})}
+function setAvatar(e){let f=e.target.files[0];if(f){document.getElementById('avatar').src=URL.createObjectURL(f)}}
+document.getElementById('musicfile').addEventListener('change',e=>{let f=e.target.files[0];if(f){let a=document.getElementById('player');if(a.dataset.url)URL.revokeObjectURL(a.dataset.url);let u=URL.createObjectURL(f);a.src=u;a.dataset.url=u;document.getElementById('musicmsg').textContent='Selected: '+f.name;a.play().catch(()=>{})}});
+function buy(cost,name){if(coins<cost){document.getElementById('shopmsg').textContent='Not enough coins for '+name+'.';return}coins-=cost;document.getElementById('coins').textContent=coins;document.getElementById('shopmsg').textContent=name+' unlocked in this demo.'}
+function jarvis(){let q=document.getElementById('jarvisinput').value.toLowerCase(),m='I am your local dashboard helper.';if(q.includes('help'))m='Try: time, games, coins, profile.';else if(q.includes('time'))m='Local time: '+new Date().toLocaleTimeString();else if(q.includes('game'))m='There are three playable mini games.';else if(q.includes('coin'))m='You have '+coins+' virtual coins.';else if(q.includes('profile'))m='Welcome, Ayush Raj! Keep learning and playing.';document.getElementById('jarvismsg').textContent=m}
+function clock(){document.getElementById('clock').textContent=new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})}clock();setInterval(clock,10000);
+
+/* Tic Tac Toe */
+let cells=[],turn='X',tttDone=false;
+function resetTTT(){cells=Array(9).fill('');turn='X';tttDone=false;renderTTT();document.getElementById('tttmsg').textContent='Your turn: X'}
+function renderTTT(){let b=document.getElementById('tttboard');b.innerHTML='';cells.forEach((v,i)=>{let x=document.createElement('button');x.textContent=v;x.onclick=()=>tttMove(i);b.appendChild(x)})}
+function tttMove(i){if(cells[i]||tttDone)return;cells[i]=turn;let wins=[[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];renderTTT();let w=wins.some(a=>a.every(j=>cells[j]===turn));if(w){tttDone=true;document.getElementById('tttmsg').textContent=turn+' wins!';if(turn==='X'){addXP(10,'Tic-Tac-Toe win');startCount()}return}if(cells.every(Boolean)){tttDone=true;document.getElementById('tttmsg').textContent='Draw! Start a new game.';return}turn=turn==='X'?'O':'X';document.getElementById('tttmsg').textContent='Your turn: '+turn}
+
+/* Memory Match */
+let mem=[],first=null,lock=false,matches=0;
+function newMemory(){mem=['🚀','🌙','👾','💎','🪐','🎮','🚀','🌙','👾','💎','🪐','🎮'].sort(()=>Math.random()-.5);first=null;lock=false;matches=0;renderMemory();document.getElementById('memorymsg').textContent='Find 6 matching pairs.'}
+function renderMemory(){let b=document.getElementById('memoryboard');b.innerHTML='';mem.forEach((v,i)=>{let x=document.createElement('button');x.textContent='?';x.dataset.open='0';x.onclick=()=>flip(i,x);b.appendChild(x)})}
+function flip(i,x){if(lock||x.dataset.open==='1'||x.dataset.done==='1')return;x.textContent=mem[i];x.dataset.open='1';if(first===null){first={i,x};return}let f=first;first=null;if(mem[f.i]===mem[i]){f.x.dataset.done='1';x.dataset.done='1';matches++;document.getElementById('memorymsg').textContent='Matches: '+matches+'/6';if(matches===6){document.getElementById('memorymsg').textContent='Perfect! All pairs matched!';addXP(15,'Memory Match completed');startCount()} }else{lock=true;setTimeout(()=>{f.x.textContent='?';x.textContent='?';f.x.dataset.open='0';x.dataset.open='0';lock=false},700)}}
+
+/* Number Guess */
+function newGuess(){secret=Math.floor(Math.random()*100)+1;document.getElementById('guessinput').value='';document.getElementById('guessmsg').textContent='New number ready. Guess from 1 to 100.'}
+function guess(){let v=Number(document.getElementById('guessinput').value),m=document.getElementById('guessmsg');if(!v||v<1||v>100){m.textContent='Enter a number from 1 to 100.';return}if(v===secret){m.textContent='Correct! You got it!';addXP(15,'Number Guess solved');startCount();secret=0}else if(v<secret)m.textContent='Too low! Try higher.';else m.textContent='Too high! Try lower.'}
+
+
+</script>
+
+
+</body>
+</html>
